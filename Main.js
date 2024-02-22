@@ -3,8 +3,11 @@ const world = document.getElementById( "world" )
 
 const deg = Math.PI / 180
 
-let sensitivity = 0.1
+let sensitivity = 0.8
 let lockedPointer = false
+
+let worldGravity = vec3( 0, -9.8, 0 )
+let groundFriction = 0.1
 
 //	Getting player input!
 let keymap = { 
