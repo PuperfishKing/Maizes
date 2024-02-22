@@ -42,7 +42,7 @@ function updatePlayer( deltaTime ) {
     }
 
     if ( playerRotation.x > 360 ) { playerRotation.x -= 360 }
-    if ( rotation.x < -360 ) { playerRotation.x += 360 }
+    if ( playerRotation.x < -360 ) { playerRotation.x += 360 }
 
     if ( playerRotation.y > 360 ) { playerRotation.y -= 360 }
     if ( playerRotation.y < -360 ) { playerRotation.y += 360 }
