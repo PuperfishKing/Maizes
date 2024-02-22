@@ -1,6 +1,6 @@
 
 // Kā strādā  
-// [x koardināte,y koardināte,z koardināte,x rotācja,y rotācja,z rotācja, augstums ( sienām nemaini ,lai paliek 300). platums, bilde ( "img/ ")  , krāsa]
+// [x koardināte, y koardināte, z koardināte, x rotācja, y rotācja, z rotācja, augstums ( sienām nemaini ,lai paliek 300) ,  platums, bilde , krāsa]
 //  un ja nav pēdējais , tad liec komatu   
 
 let devLevel = {
