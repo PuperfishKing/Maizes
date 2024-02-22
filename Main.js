@@ -21,10 +21,14 @@ function onKeyRelese( event ) {
         keymap[ event.code ] = false
     }
 }
+function onMouseMove( event ) { 
+	if ( !lockedPointer ) return
+	
+ }
 
 document.addEventListener( "keydown", onKeyPress )
 document.addEventListener( "keyup", onKeyRelese )
-// document.addEventListener( "mousemove", onMouseMove )
+document.addEventListener( "mousemove", onMouseMove )
 
 document.addEventListener( "pointerlockchange", () => { lockedPointer = !lockedPointer } )
 
