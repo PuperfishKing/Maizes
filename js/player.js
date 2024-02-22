@@ -19,27 +19,28 @@ function updatePlayer() {
     let facingY = Math.sin( playerRotation.y * deg )
 
     if ( keymap.KeyW ) {
-        playerVelocity.z = facingX * movementSpeed
-        playerVelocity.x = facingY * movementSpeed
+        playerVelocity.z += facingX * movementSpeed
+        playerVelocity.x -= facingY * movementSpeed
     }else if ( keymap.KeyS ) {
-        playerVelocity.z = -facingX * movementSpeed
-        playerVelocity.x = facingY * movementSpeed
+        playerVelocity.z -= facingX * movementSpeed
+        playerVelocity.x += facingY * movementSpeed
     }
 
     if ( keymap.KeyA ) {
-        playerVelocity.x = facingX * movementSpeed
-        playerVelocity.z = facingY * movementSpeed
+        playerVelocity.x += facingX * movementSpeed
+        playerVelocity.z += facingY * movementSpeed
     }else if ( keymap.KeyD ) {
-        playerVelocity.x = -facingX * movementSpeed
-        playerVelocity.z = -facingY * movementSpeed
+        playerVelocity.x -= facingX * movementSpeed
+        playerVelocity.z -= facingY * movementSpeed
     }
 
-    playerVelocity.x -= playerVelocity.x * groundFriction
-    playerVelocity.z -= playerVelocity.z * groundFriction
-
-    if ( playerPosition.y < 0 ) {
+    if ( playerPosition.y < 0 && playerVelocity.y < 0 ) {
         playerPosition.y = 0
+        playerVelocity.y = 0
     }
+
+    playerVelocity.x *= groundFriction
+    playerVelocity.z *= groundFriction
 
     if ( playerRotation.x > 360 ) { playerRotation.x -= 360 }
     if ( playerRotation.x < -360 ) { playerRotation.x += 360 }
@@ -50,7 +51,5 @@ function updatePlayer() {
     if ( playerRotation.z > 360 ) { playerRotation.z -= 360 }
     if ( playerRotation.z < -360 ) { playerRotation.z += 360 }
 
-    world.style.transform = getTransform( playerPosition, playerRotation )
-
-    console.log(playerPosition.z)
+    world.style.transform = "translateZ( 600px )" + getTransform( playerPosition, playerRotation )
 }

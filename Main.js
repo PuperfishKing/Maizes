@@ -3,15 +3,16 @@ const world = document.getElementById( "world" )
 
 const deg = Math.PI / 180
 
-let sensitivity = 0.8
+let sensitivity = 0.1
 let lockedPointer = false
 
 let worldGravity = vec3( 0, -9.8, 0 )
 let groundFriction = 0.1
+let worldGroundLevel = 0
 
 //	Getting player input!
 let keymap = { 
-    KeyA : false, KeyD : false, KeyW : false, KeyS : false, KeyQ : false, KeyE : false, ShiftLeft : false, KeyZ : false, ControlLeft : false,
+    KeyA : false, KeyD : false, KeyW : false, KeyS : false, KeyQ : false, KeyE : false, ShiftLeft : false, KeyZ : false, ControlLeft : false, Space : false
 }
 
 function onKeyPress( event ) {
@@ -27,6 +28,10 @@ function onKeyRelese( event ) {
 function onMouseMove( event ) { 
 	if ( !lockedPointer ) return
 	
+	playerRotation.y += event.movementX * sensitivity
+    playerRotation.x -= event.movementY * sensitivity
+
+    playerRotation.x = clamp( -70, 70, playerRotation.x )
  }
 
 document.addEventListener( "keydown", onKeyPress )
@@ -49,6 +54,7 @@ function include( file ) {
 	script.defer = true
 
 	document.getElementsByTagName('head').item(0).appendChild(script)
+	document.get
 }
 
 //	Utils
@@ -66,7 +72,16 @@ function getTransform( position = { x : 0, y : 0, z : 0 }, rotation = { x : 0, y
 	return `rotateX( ${ rotation.x }deg ) rotateY( ${ rotation.y }deg ) translate3d(${ position.x }px, ${ position.y }px, ${ position.z }px)`
 }
 
+function clamp( min, max, val ) {
+	if ( min > val ) {
+		return min
+	} else if ( max < val ) {
+		return max
+	} else return val
+}
+
 //  File appending
 include( "js/map.js" )
 include( "js/player.js" )
+
 include( "js/game.js" )

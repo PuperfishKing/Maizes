@@ -11,6 +11,4 @@ function game() {
     request = requestAnimationFrame( game )
 }
 
-
-
 game()

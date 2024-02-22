@@ -4,42 +4,95 @@
 //  un ja nav pēdējais , tad liec komatu   
 
 // Kāuztaisīt elementus , monētas ,apļus utt: (beigas ir ļoti svarīgas)
-// [x koardināte, y koardināte, z koardināte, x rotācja, y rotācja, z rotācja, augstums ( mazāk par 300) ,  platums, bilde , krāsa , klase ( "Circle" vai "square "utt)]
+// [x koardināte, y koardināte, z koardināte, x rotācja, y rotācja, z rotācja, augstums ( mazāk par 300) ,  platums, bilde , krāsa , klase ( "Circle" vai "square "utt)], vārds( nav svarīgs ) 
+
+let allLoadedColliders = {}
+let allLoadedObjects = {}
 
 let devLevel = {
-    info: {
+    meta: {
         groundFriction: 1,
         playerHeight: 150
     },
 
-    map: [
+    geometry: [
         // Grīda
         [0, 0, 0, 90, 0, 0, 1000, 1000, "cracked-asphalt-texture.jpg", "#000000"],
         // Siena
         [50, 50, 0, 0, 0, 0, 300, 500, "brick.jpg", "#fc865d"],
+    ],
+
+    objects : [
         // Monēta
-        [45, 45, 0, 0, 0, 0, 100, 100, "1EURO.png", null]
+        [45, 45, 0, 0, 0, 0, 100, 100, "1EURO.png", null, 'coin']
     ]
 }
 
-function parseMap(map) {
-    for (let i = 0; i < map.length; i++){
-        let currentEntry = map[i]
-        let element = document.createElement("div")
-        
-        element.className = "square"
-        element.id = "square" + i
-        element.style.width = currentEntry[6] + "px"
-        element.style.height = currentEntry[7] + "px"
+function parsDiv( currentEntry ) {
+    let element = document.createElement("div")
 
-        element.style.transform = getTransform( 
-            vec3(currentEntry[0], currentEntry[1], currentEntry[2]), 
-            vec3(currentEntry[3], currentEntry[4], currentEntry[5])
-        )
+    element.className = currentEntry[ 10 ] || 'square'
+    
+    if ( currentEntry[ 11 ] ) {
+        element.id = currentEntry[ 11 ]
+    }
+    
+    element.style.width = currentEntry[6] + "px"
+    element.style.height = currentEntry[7] + "px"
 
-        element.style.backgroundImage = "url(img/" + currentEntry[8] + ")"
-        document.getElementById("world").append(element)
-    } 
+    element.style.transform = 
+    getTransform( 
+        vec3(currentEntry[0], currentEntry[1], currentEntry[2]), 
+        vec3(currentEntry[3], currentEntry[4], currentEntry[5])
+    )
+
+    if ( currentEntry[ 8 ] ) {
+        element.style.backgroundImage = `url( img/${ currentEntry[ 8 ] } )`
+    } else {
+        element.style.backgroundColor = currentEntry[ 9 ]
+    }
+
+    return element
 }
 
-parseMap(devLevel.map)
+function parsGeometry( geometry ) {
+    for ( let index = 0; index < geometry.length; index++ ) {
+        let object = geometry[ index ]
+        let element = parsDiv( object )
+        
+        //Collider math time :3
+        
+        world.appendChild( element )
+    } 
+}
+function loadGameObjects( objects ) {
+    for ( let index = 0; index < objects.length; index++ ) {
+        let object = objects[ index ]
+        let element = parsDiv( object )
+
+
+        world.appendChild( element )
+    }
+}
+
+function loadMeta( meta ) {
+    groundFriction = meta.groundFriction
+    worldGroundLevel = meta.playerHeight
+}
+
+function loadLevel( level ) {
+    dropCurrentLevel()
+
+    loadMeta( level.meta )
+    parsGeometry( level.geometry )
+    loadGameObjects( level.objects )
+
+}
+function dropCurrentLevel( ) {
+    while ( world.firstChild ) {
+        world.removeChild( world.firstChild )
+    }
+}
+
+
+loadLevel( devLevel )
