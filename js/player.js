@@ -1,41 +1,41 @@
-let worldGravity = vec3( 0, -9.8, 0 )
-
 let playerPosition = vec3()
 let playerRotation = vec3()
-let playerVellocity = vec3()
+let playerVelocity = vec3(0, 0, 0)
 
 let terminalVelocity = 20
-let movementSpeed = 5
+let movementSpeed = 50
 
-function updatePlayer( deltaTime ) {
+function updatePlayer() {
 
-    playerVellocity.x += worldGravity.x * deltaTime
-    playerVellocity.y += worldGravity.y * deltaTime
-    playerVellocity.z += worldGravity.z * deltaTime
+    playerVelocity.x += worldGravity.x
+    playerVelocity.y += worldGravity.y
+    playerVelocity.z += worldGravity.z
 
-    playerPosition.x += playerVellocity.x * deltaTime
-    playerPosition.y += playerVellocity.y * deltaTime
-    playerPosition.z += playerVellocity.z * deltaTime
+    playerPosition.x += playerVelocity.x
+    playerPosition.y += playerVelocity.y
+    playerPosition.z += playerVelocity.z
 
     let facingX = Math.cos( playerRotation.y * deg )
     let facingY = Math.sin( playerRotation.y * deg )
 
     if ( keymap.KeyW ) {
-        playerVellocity.z = facingX * movementSpeed
-        playerVellocity.x = facingY * movementSpeed
+        playerVelocity.z = facingX * movementSpeed
+        playerVelocity.x = facingY * movementSpeed
+    }else if ( keymap.KeyS ) {
+        playerVelocity.z = -facingX * movementSpeed
+        playerVelocity.x = facingY * movementSpeed
     }
+
     if ( keymap.KeyA ) {
-        playerVellocity.x = facingX * movementSpeed
-        playerVellocity.z = facingY * movementSpeed
+        playerVelocity.x = facingX * movementSpeed
+        playerVelocity.z = facingY * movementSpeed
+    }else if ( keymap.KeyD ) {
+        playerVelocity.x = -facingX * movementSpeed
+        playerVelocity.z = -facingY * movementSpeed
     }
-    if ( keymap.KeyS ) {
-        playerVellocity.z = facingX * movementSpeed
-        playerVellocity.x = facingY * movementSpeed
-    }
-    if ( keymap.KeyD ) {
-        playerVellocity.x = facingX * movementSpeed
-        playerVellocity.z = facingY * movementSpeed
-    }
+
+    playerVelocity.x -= playerVelocity.x * groundFriction
+    playerVelocity.z -= playerVelocity.z * groundFriction
 
     if ( playerPosition.y < 0 ) {
         playerPosition.y = 0
@@ -52,4 +52,5 @@ function updatePlayer( deltaTime ) {
 
     world.style.transform = getTransform( playerPosition, playerRotation )
 
+    console.log(playerPosition.z)
 }
