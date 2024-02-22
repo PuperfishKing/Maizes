@@ -1,0 +1,22 @@
+#container {
+	position: absolute;
+	width: 1200px;
+	height: 800px;
+	border: 2px solid #000000;
+	perspective: 600px;
+	overflow: hidden;
+}
+#world {
+	position: absolute;
+	width: inherit;
+	height: inherit;
+	transform-style: preserve-3d;
+}
+.square {
+	position: absolute;
+}
+
+.circle {
+	position: absolute;
+	border-radius: 25px;
+}
