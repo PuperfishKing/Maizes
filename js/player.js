@@ -1,121 +1,121 @@
-const accselFreeFall = 9.8066
+let worldGravity = vec3( 0, -9.8, 0 )
 
-let time = Date.now()
-
-let jumpHeight = -9.15
-let fallVelocity = 0
-let seconds = 0
-let timeSpeed = 0.1
-
-let defaultPlayerHeight = 0
-let playerHeight = defaultPlayerHeight
-
-let crouchHeightPercentage = 0.75
+let playerPosition = vec3()
+let playerRotation = vec3()
+let playerVellocity = vec3()
 
 let movementSpeed = 6
-let sensitivity = 0.2
 
-let isCrouching = false
+function updatePlayer( deltaTime ) {
 
-let lockedPointer = false
-let isInfoPanelOpen = false
+    playerVellocity.x += worldGravity.x * deltaTime
+    playerVellocity.y += worldGravity.y * deltaTime
+    playerVellocity.z += worldGravity.z * deltaTime
 
-let keymap = { 
-    KeyA : false, KeyD : false, KeyW : false, KeyS : false, Space: false, KeyC: false,
-}
+    playerPosition.x += playerVellocity.x * deltaTime
+    playerPosition.y += playerVellocity.y * deltaTime
+    playerPosition.z += playerVellocity.z * deltaTime
 
-let player = {
-    position : vec3(0, defaultPlayerHeight, 0),
-    rotation : vec3()
-}
+    let facingX = Math.cos( playerRotation.y * deg )
+    let facingY = Math.sin( playerRotation.y * deg )
 
-container.onclick = function() {
-    container.requestPointerLock()
-}
-
-function onMouseMove( event ) {
-    if ( !lockedPointer ) return
-
-    rotation.y += event.movementX * sensitivity
-    rotation.x -= event.movementY * sensitivity
-}
-
-function onKeyPress() {
-    let facingVector = vec3(
-        Math.cos( rotation.y * deg ),
-        Math.sin( rotation.y * deg ),
-    )
-
-    if ( keymap.KeyW ) {
-        position.z += facingVector.x * movementSpeed
-        position.x -= facingVector.y * movementSpeed
-    }
-    if ( keymap.KeyS ) {
-        position.z -= facingVector.x * movementSpeed
-        position.x += facingVector.y * movementSpeed
-    }
-
-    if ( keymap.KeyA ) {
-        position.x += facingVector.x * movementSpeed
-        position.z += facingVector.y * movementSpeed
-    }
-    if ( keymap.KeyD ) {
-        position.x -= facingVector.x * movementSpeed
-        position.z -= facingVector.y * movementSpeed
+    if ( playerPosition.y < 0 ) {
+        
     }
 
     if ( rotation.x > 360 ) { rotation.x -= 360 }
     if ( rotation.x < -360 ) { rotation.x += 360 }
-    
+
     if ( rotation.y > 360 ) { rotation.y -= 360 }
     if ( rotation.y < -360 ) { rotation.y += 360 }
 
     if ( rotation.z > 360 ) { rotation.z -= 360 }
     if ( rotation.z < -360 ) { rotation.z += 360 }
 
-    if ( keymap[ event.code ] != null ) {
-        keymap[ event.code ] = true
-    }
+    world.style.transform = getTransform( playerPosition, playerRotation )
+
 }
 
-function onKeyRelese() {
-    if ( keymap.Space ) {
-        fallVelocity = jumpHeight
-    }
-    if ( keymap.KeyC ) {
-        isCrouching = !isCrouching
-    }
 
-    if ( keymap[ event.code ] != null ) {
-        keymap[ event.code ] = true
-    }
-}
 
-function playerPhysics() {
-    //laiks
-    seconds = Math.min( (Date.now() - time) / 1000, timeSpeed )
-    time = Date.now()
+// function onMouseMove( event ) {
+//     if ( !lockedPointer ) return
 
-    //krišana
-    fallVelocity = fallVelocity + accselFreeFall*seconds
-    position.y = position.y - fallVelocity
+//     rotation.y += event.movementX * sensitivity
+//     rotation.x -= event.movementY * sensitivity
+// }
 
-    if (position.y <= playerHeight) {
-        position.y = playerHeight
-        fallVelocity = 0
-    }
+// function onKeyPress() {
+//     let facingVector = vec3(
+//         Math.cos( rotation.y * deg ),
+//         Math.sin( rotation.y * deg ),
+//     )
 
-    //tupšanās
-    if (isCrouching) {
-        if (playerHeight > defaultPlayerHeight*crouchHeightPercentage) {
-            playerHeight = playerHeight*crouchHeightPercentage
-        }
-    } else if (!isCrouching && playerHeight < defaultPlayerHeight) {
-        playerHeight = playerHeight/crouchHeightPercentage
-    }
-}
+//     if ( keymap.KeyW ) {
+//         position.z += facingVector.x * movementSpeed
+//         position.x -= facingVector.y * movementSpeed
+//     }
+//     if ( keymap.KeyS ) {
+//         position.z -= facingVector.x * movementSpeed
+//         position.x += facingVector.y * movementSpeed
+//     }
 
-document.addEventListener( "keydown", onKeyPress )
-document.addEventListener( "keyup", onKeyRelese )
-document.addEventListener( "mousemove", onMouseMove )
-document.addEventListener( "pointerlockchange", () => { lockedPointer = !lockedPointer } )
+//     if ( keymap.KeyA ) {
+//         position.x += facingVector.x * movementSpeed
+//         position.z += facingVector.y * movementSpeed
+//     }
+//     if ( keymap.KeyD ) {
+//         position.x -= facingVector.x * movementSpeed
+//         position.z -= facingVector.y * movementSpeed
+//     }
+
+//     if ( rotation.x > 360 ) { rotation.x -= 360 }
+//     if ( rotation.x < -360 ) { rotation.x += 360 }
+    
+//     if ( rotation.y > 360 ) { rotation.y -= 360 }
+//     if ( rotation.y < -360 ) { rotation.y += 360 }
+
+//     if ( rotation.z > 360 ) { rotation.z -= 360 }
+//     if ( rotation.z < -360 ) { rotation.z += 360 }
+
+//     if ( keymap[ event.code ] != null ) {
+//         keymap[ event.code ] = true
+//     }
+// }
+
+// function onKeyRelese() {
+//     if ( keymap.Space ) {
+//         fallVelocity = jumpHeight
+//     }
+//     if ( keymap.KeyC ) {
+//         isCrouching = !isCrouching
+//     }
+
+//     if ( keymap[ event.code ] != null ) {
+//         keymap[ event.code ] = true
+//     }
+// }
+
+// function playerPhysics() {
+//     //laiks
+//     seconds = Math.min( (Date.now() - time) / 1000, timeSpeed )
+//     time = Date.now()
+
+//     //krišana
+//     fallVelocity = fallVelocity + accselFreeFall*seconds
+//     position.y = position.y - fallVelocity
+
+//     if (position.y <= playerHeight) {
+//         position.y = playerHeight
+//         fallVelocity = 0
+//     }
+
+//     //tupšanās
+//     if (isCrouching) {
+//         if (playerHeight > defaultPlayerHeight*crouchHeightPercentage) {
+//             playerHeight = playerHeight*crouchHeightPercentage
+//         }
+//     } else if (!isCrouching && playerHeight < defaultPlayerHeight) {
+//         playerHeight = playerHeight/crouchHeightPercentage
+//     }
+// }
