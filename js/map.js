@@ -12,7 +12,8 @@ let allLoadedObjects = {}
 let devLevel = {
     meta: {
         groundFriction: 1,
-        playerHeight: 150
+        playerHeight: 150,
+        gravity : null,
     },
 
     geometry: [
@@ -42,8 +43,8 @@ function parsDiv( currentEntry ) {
 
     element.style.transform = 
     getTransform( 
-        vec3(currentEntry[0], currentEntry[1], currentEntry[2]), 
-        vec3(currentEntry[3], currentEntry[4], currentEntry[5])
+        vec3( currentEntry[0], currentEntry[1], currentEntry[2] ), 
+        vec3( currentEntry[3], currentEntry[4], currentEntry[5] )
     )
 
     if ( currentEntry[ 8 ] ) {
@@ -76,8 +77,10 @@ function loadGameObjects( objects ) {
 }
 
 function loadMeta( meta ) {
-    groundFriction = meta.groundFriction
-    worldGroundLevel = meta.playerHeight
+    groundFriction = meta.groundFriction || 1
+    worldGroundLevel = meta.playerHeight || 150
+
+    worldGravity = meta.gravity || vec3( 0, -9.8, 0 )
 }
 
 function loadLevel( level ) {
