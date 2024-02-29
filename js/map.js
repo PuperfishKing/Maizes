@@ -13,7 +13,7 @@ let devLevel = {
     meta: {
         groundFriction: 1,
         playerHeight: 150,
-        gravity : null,
+        gravity : { x : 0, y : -5, z : 0 }
     },
 
     geometry: [
@@ -96,6 +96,3 @@ function dropCurrentLevel( ) {
         world.removeChild( world.firstChild )
     }
 }
-
-
-loadLevel( devLevel )

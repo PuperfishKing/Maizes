@@ -10,26 +10,30 @@ let worldGravity
 let groundFriction = 0.1
 let worldGroundLevel = 0
 
+let updatePlayer = () => {}
+
 //	Getting player input!
 let keymap = { 
-    KeyA : false, KeyD : false, KeyW : false, KeyS : false, KeyQ : false, KeyE : false, ShiftLeft : false, KeyZ : false, ControlLeft : false, Space : false
+    KeyA : 0, KeyD : 0, KeyW : 0, KeyS : 0, KeyQ : 0, KeyE : 0, ShiftLeft : 0, KeyZ : 0, ControlLeft : 0, Space : 0
 }
 
 function onKeyPress( event ) {
     if ( keymap[ event.code ] != null ) {
-        keymap[ event.code ] = true
+        keymap[ event.code ] = 1
     }
 }
 function onKeyRelese( event ) {
     if ( keymap[ event.code ] != null ) {
-        keymap[ event.code ] = false
+        keymap[ event.code ] = 0
     }
 }
 function onMouseMove( event ) { 
 	if ( !lockedPointer ) return
 	
-	playerRotation.y += event.movementX * sensitivity
-    playerRotation.x -= event.movementY * sensitivity
+	playerRotation.y += ( event.movementX || 0 ) * sensitivity
+    playerRotation.x -= ( event.movementY || 0 ) * sensitivity
+
+	// console.log( event )
 
     playerRotation.x = clamp( -70, 70, playerRotation.x )
  }
@@ -56,22 +60,8 @@ function include( file ) {
 	document.getElementsByTagName('head').item(0).appendChild(script)
 }
 
-//	Utils
-
-function getTransform( position = { x : 0, y : 0, z : 0 }, rotation = { x : 0, y : 0, z : 0 } ) { //translateZ( 600px )
-	return `rotateX( ${ rotation.x }deg ) rotateY( ${ rotation.y }deg ) translate3d(${ position.x }px, ${ position.y }px, ${ position.z }px)`
-}
-
-function clamp( min, max, val ) {
-	if ( min > val ) {
-		return min
-	} else if ( max < val ) {
-		return max
-	} else return val
-}
-
 //  File appending
-include( "js/vector3.js" )
+include( "js/math.js" )
 
 include( "js/map.js" )
 include( "js/player.js" )
