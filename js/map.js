@@ -4,7 +4,7 @@
 //  un ja nav pēdējais , tad liec komatu   
 
 // Kāuztaisīt elementus , monētas ,apļus utt: (beigas ir ļoti svarīgas)
-// [x koardināte, y koardināte, z koardināte, x rotācja, y rotācja, z rotācja, augstums ( mazāk par 300) ,  platums, bilde , krāsa , klase ( "Circle" vai "square "utt)], vārds( nav svarīgs ) 
+// [x koardināte, y koardināte, z koardināte, x rotācja, y rotācja, z rotācja, augstums ( mazāk par 300) ,  platums, bilde , krāsa , klase ( "Circle" vai "square "utt), vārds( nav svarīgs )] 
 
 let allLoadedColliders = {}
 let allLoadedObjects = {}
