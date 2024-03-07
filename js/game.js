@@ -8,5 +8,8 @@ function game() {
     request = requestAnimationFrame( game )
 }
 
-loadLevel( devLevel )
-game()
+window.onload = () => {
+    loadLevel( devLevel )
+
+    game()
+}
