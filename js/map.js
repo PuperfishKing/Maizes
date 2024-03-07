@@ -29,10 +29,38 @@ var devLevel = {
     ]
 }
 
+var outside = {
+    meta: {
+        groundFriction: 1,
+        playerHeight: 150,
+        gravity : { x : 0, y : -5, z : 0 }
+    },
+
+    geometry: [
+        // Grīda
+        [0, 0, -300, 90, 0, 0, 1500, 500, "floor.jpg", "#000000"],
+        // Siena
+        [0, 0, -100, 0, 0, 0, 1500, 300, "wall.jpg", "#fc865d"],
+        [0, 0, 400, 0, 0, 0, 1500, 300, "wall.jpg", "#fc865d"],
+        [500, 0, -400, 0, 90, 0, 500, 300, "wall.jpg", "#fc865d"],
+        [500, 0, 1100, 0, 90, 0, 500, 300, "wall.jpg", "#fc865d"],
+    ],
+
+    objects : [
+        //DURVIS
+        [-250,-25,-99, 0,0,0, 350,250, "door.png", null],
+        [450,-25,-99, 0,0,0, 350,250, "door.png", null],
+        [-250,-25,399, 0,0,0, 350,250, "door.png", null],
+        [450,-25,399, 0,0,0, 350,250, "door.png", null],
+
+        [550, -25,-349, 0,90,0, 400,250, "durv2.jpg", null],
+    ]
+}
+
 function parsDiv( currentEntry ) {
     let element = document.createElement("div")
 
-    element.className = currentEntry[ 10 ] || 'square'
+    element.className = currentEntry[10] || 'square'
     
     if ( currentEntry[ 11 ] ) {
         element.id = currentEntry[ 11 ]

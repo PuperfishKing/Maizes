@@ -9,7 +9,7 @@ function game() {
 }
 
 window.onload = () => {
-    loadLevel( devLevel )
+    loadLevel( outside )
 
     game()
 }
