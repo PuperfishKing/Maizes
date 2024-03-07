@@ -9,7 +9,7 @@
 let allLoadedColliders = {}
 let allLoadedObjects = {}
 
-let devLevel = {
+var devLevel = {
     meta: {
         groundFriction: 1,
         playerHeight: 150,
