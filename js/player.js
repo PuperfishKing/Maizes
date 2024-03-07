@@ -10,6 +10,10 @@ let grounded = 0
 
 updatePlayer = () => {
 
+    if (AABBCollition()) {
+        console.log('Has collided')
+    }
+
     let dirForward = keymap.KeyW - keymap.KeyS
     let dirSideways = keymap.KeyA - keymap.KeyD
 

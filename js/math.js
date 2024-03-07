@@ -52,3 +52,13 @@ function clamp( min, max, val ) {
 		return max
 	} else return val
 }
+
+function check1DCollition( start, end, current ) {
+    return ( start <= current ) && ( end >= current )
+}
+
+function check3DCollition( p0, p1, current ) {
+    return check1DCollition( p0.x, p1.x, current.x ) && 
+        check1DCollition( p0.y, p1.y, current.y ) &&
+        check1DCollition( p0.z, p1.z, current.z )
+}
