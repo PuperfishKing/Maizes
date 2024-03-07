@@ -21,7 +21,7 @@ var devLevel = {
 
     geometry: [
         // Grīda
-        [0, 0, 0, 90, 0, 0, 1000, 1000, "cracked-asphalt-texture.jpg", "#000000"],
+        [0, 0, 0, 90, 0, 0, 1000, 1000, "cracked-asphalt-texture.jpg"],
         // Siena
         [0, 350, 0, 0, 0, 0, 300, 500, "brick.jpg", "#fc865d"],
     ],
@@ -54,10 +54,10 @@ function parsDiv( currentEntry ) {
         vec3( currentEntry[3], currentEntry[4], currentEntry[5] )
     )
 
-    if ( currentEntry[ 8 ] ) {
-        element.style.backgroundImage = `url( img/${ currentEntry[ 8 ] } )`
+    if ( currentEntry[ 8 ].indexOf('.') < 0 ) {
+        element.style.backgroundColor = currentEntry[ 8 ]
     } else {
-        element.style.backgroundColor = currentEntry[ 9 ]
+        element.style.backgroundImage = `url( img/${ currentEntry[ 8 ] } )`
     }
 
     return element
