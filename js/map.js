@@ -1,6 +1,6 @@
 
 // Kā uztaisīt sienas, grīdas utt:  
-// [x koordināte, y koordināte, z koordināte, x rotācja, y rotācja, z rotācja, augstums ( sienām nemaini ,lai paliek 300) ,  platums, bilde , krāsa]
+// [x koordināte, y koordināte, z koordināte, x rotācja, y rotācja, z rotācja, augstums ( sienām nemaini ,lai paliek 300) ,  augstums, bilde , krāsa]
 //  un ja nav pēdējais , tad liec komatu   
 
 // Kāuztaisīt elementus , monētas ,apļus utt: (beigas ir ļoti svarīgas)
@@ -20,12 +20,12 @@ var devLevel = {
         // Grīda
         [0, 0, 0, 90, 0, 0, 1000, 1000, "cracked-asphalt-texture.jpg"],
         // Siena
-        [0, 0, 0, 0, 0, 0, 300, 500, "brick.jpg"],
+        [0, 350, 0, 0, 0, 0, 300, 500, "brick.jpg", "#fc865d"],
     ],
 
     objects : [
         // Monēta
-        [45, 45, 0, 0, 0, 0, 100, 100, "1EURO.png", null, 'coin']
+        [45, 350, 0, 0, 0, 0, 100, 100, "1EURO.png", null, 'coin']
     ]
 }
 
