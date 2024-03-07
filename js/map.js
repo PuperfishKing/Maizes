@@ -7,7 +7,7 @@
 // [x koordināte, y koordināte, z koordināte, x rotācja, y rotācja, z rotācja, augstums ( mazāk par 300) ,  platums, bilde , krāsa , klase ( "Circle" vai "square "utt), vārds( nav svarīgs )] 
 // [0]              [1]         [2]           [3]       [4]          [5]        [6]                         [7]      [8]    [9]     [9]                                    [10]
 
-const zDirection = 5
+const zDirection = 8
 
 let allLoadedColliders = []
 let allLoadedObjects = []
@@ -23,7 +23,7 @@ var devLevel = {
         // Grīda
         [0, 0, 0, 90, 0, 0, 1000, 1000, "cracked-asphalt-texture.jpg"],
         // Siena
-        [0, 350, 0, 0, 0, 0, 300, 500, "brick.jpg", "#fc865d"],
+        [-500, 200, 0, 0, 0, 0, 300, 500, "brick.jpg", "#fc865d"],
     ],
 
     objects : [
@@ -75,6 +75,7 @@ function parsGeometry( geometry ) {
         
         world.appendChild( element )
     } 
+    console.log( allLoadedColliders )
 }
 
 function AABBCollition() {
