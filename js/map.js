@@ -1,6 +1,6 @@
 
 // Kā uztaisīt sienas, grīdas utt:  
-// [x koordināte, y koordināte, z koordināte, x rotācja, y rotācja, z rotācja, augstums ( sienām nemaini ,lai paliek 300) ,  platums, bilde , krāsa]
+// [x koordināte, y koordināte, z koordināte, x rotācja, y rotācja, z rotācja, augstums ( sienām nemaini ,lai paliek 300) ,  augstums, bilde , krāsa]
 //  un ja nav pēdējais , tad liec komatu   
 
 // Kāuztaisīt elementus , monētas ,apļus utt: (beigas ir ļoti svarīgas)
@@ -23,12 +23,12 @@ var devLevel = {
         // Grīda
         [0, 0, 0, 90, 0, 0, 1000, 1000, "cracked-asphalt-texture.jpg", "#000000"],
         // Siena
-        [0, 300, 0, 0, 0, 0, 300, 500, "brick.jpg", "#fc865d"],
+        [0, 350, 0, 0, 0, 0, 300, 500, "brick.jpg", "#fc865d"],
     ],
 
     objects : [
         // Monēta
-        [45, 45, 0, 0, 0, 0, 100, 100, "1EURO.png", null, 'coin']
+        [45, 350, 0, 0, 0, 0, 100, 100, "1EURO.png", null, 'coin']
     ]
 }
 
@@ -47,8 +47,8 @@ function parsDiv( currentEntry ) {
     element.style.transform = 
     getTransform( 
         vec3( 
-            parseInt( getComputedStyle( world ).width, 10 ) / 2 - currentEntry[6] / 2 - currentEntry[0], 
-            parseInt( getComputedStyle( world ).width, 10 ) / 2 - currentEntry[7] / 2 - currentEntry[1], 
+            parseInt( getComputedStyle( container ).width, 10 ) / 2 - currentEntry[6] / 2 - currentEntry[0], 
+            parseInt( getComputedStyle( container ).height, 10 ) / 2 - currentEntry[7] / 2 - currentEntry[1], 
             currentEntry[2]
             ),
         vec3( currentEntry[3], currentEntry[4], currentEntry[5] )
