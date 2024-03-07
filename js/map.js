@@ -5,6 +5,9 @@
 
 // Kāuztaisīt elementus , monētas ,apļus utt: (beigas ir ļoti svarīgas)
 // [x koordināte, y koordināte, z koordināte, x rotācja, y rotācja, z rotācja, augstums ( mazāk par 300) ,  platums, bilde , krāsa , klase ( "Circle" vai "square "utt), vārds( nav svarīgs )] 
+// [0]              [1]         [2]           [3]       [4]          [5]        [6]                         [7]      [8]    [9]     [9]                                    [10]
+
+const zDirection = 5
 
 let allLoadedColliders = []
 let allLoadedObjects = []
@@ -18,7 +21,7 @@ var devLevel = {
 
     geometry: [
         // Grīda
-        [0, 0, 0, 90, 0, 0, 1000, 1000, "cracked-asphalt-texture.jpg", "#000000"],
+        [0, 0, 0, 90, 0, 0, 1000, 1000, "cracked-asphalt-texture.jpg"],
         // Siena
         [0, 350, 0, 0, 0, 0, 300, 500, "brick.jpg", "#fc865d"],
     ],
@@ -79,10 +82,10 @@ function parsDiv( currentEntry ) {
         vec3( currentEntry[3], currentEntry[4], currentEntry[5] )
     )
 
-    if ( currentEntry[ 8 ] ) {
-        element.style.backgroundImage = `url( img/${ currentEntry[ 8 ] } )`
+    if ( currentEntry[ 8 ].indexOf('.') < 0 ) {
+        element.style.backgroundColor = currentEntry[ 8 ]
     } else {
-        element.style.backgroundColor = currentEntry[ 9 ]
+        element.style.backgroundImage = `url( img/${ currentEntry[ 8 ] } )`
     }
 
     return element
@@ -94,13 +97,23 @@ function parsGeometry( geometry ) {
         let element = parsDiv( object )
         
         allLoadedColliders.push( {
-            p0 : vec3( object[ 0 ], object[ 1 ], object[ 2 ] ),
-
+            p0 : vec3( object[ 0 ] - 0.5*object[ 7 ], object[ 1 ] - 0.5*object[ 6 ], object[ 2 ] - zDirection ),
+            p1 : vec3( object[ 0 ] + 0.5*object[ 7 ], object[ 1 ] + 0.5*object[ 6 ], object[ 2 ] + zDirection ),
         } )
         
         world.appendChild( element )
     } 
 }
+
+function AABBCollition() {
+    for ( let index = 0; index < allLoadedColliders.length; index++ ) {
+        if ( check3DCollition( allLoadedColliders[ index ].p0, allLoadedColliders[ index ].p1, playerPosition ) ) {
+            return true
+        }
+    }
+    return false
+}
+
 function loadGameObjects( objects ) {
     for ( let index = 0; index < objects.length; index++ ) {
         let object = objects[ index ]
