@@ -9,7 +9,7 @@ let jumpPower = 13
 let grounded = 0
 
 updatePlayer = () => {
-    
+
     let dirForward = keymap.KeyW - keymap.KeyS
     let dirSideways = keymap.KeyA - keymap.KeyD
 
@@ -24,6 +24,4 @@ updatePlayer = () => {
     
     fixRotationVector( playerRotation )
     world.style.transform = "translateZ( 600px )" + getTransform( playerPosition, playerRotation )
-
-    console.log(playerVelocity.z)
 }
