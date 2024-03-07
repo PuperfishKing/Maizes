@@ -1,10 +1,10 @@
 
 // Kā uztaisīt sienas, grīdas utt:  
-// [x koardināte, y koardināte, z koardināte, x rotācja, y rotācja, z rotācja, augstums ( sienām nemaini ,lai paliek 300) ,  platums, bilde , krāsa]
+// [x koordināte, y koordināte, z koordināte, x rotācja, y rotācja, z rotācja, augstums ( sienām nemaini ,lai paliek 300) ,  platums, bilde , krāsa]
 //  un ja nav pēdējais , tad liec komatu   
 
 // Kāuztaisīt elementus , monētas ,apļus utt: (beigas ir ļoti svarīgas)
-// [x koardināte, y koardināte, z koardināte, x rotācja, y rotācja, z rotācja, augstums ( mazāk par 300) ,  platums, bilde , krāsa , klase ( "Circle" vai "square "utt), vārds( nav svarīgs )] 
+// [x koordināte, y koordināte, z koordināte, x rotācja, y rotācja, z rotācja, augstums ( mazāk par 300) ,  platums, bilde , krāsa , klase ( "Circle" vai "square "utt), vārds( nav svarīgs )] 
 
 let allLoadedColliders = {}
 let allLoadedObjects = {}
