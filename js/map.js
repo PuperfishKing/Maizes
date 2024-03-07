@@ -6,8 +6,8 @@
 // Kāuztaisīt elementus , monētas ,apļus utt: (beigas ir ļoti svarīgas)
 // [x koordināte, y koordināte, z koordināte, x rotācja, y rotācja, z rotācja, augstums ( mazāk par 300) ,  platums, bilde , krāsa , klase ( "Circle" vai "square "utt), vārds( nav svarīgs )] 
 
-let allLoadedColliders = {}
-let allLoadedObjects = {}
+let allLoadedColliders = []
+let allLoadedObjects = []
 
 var devLevel = {
     meta: {
@@ -20,7 +20,7 @@ var devLevel = {
         // Grīda
         [0, 0, 0, 90, 0, 0, 1000, 1000, "cracked-asphalt-texture.jpg", "#000000"],
         // Siena
-        [50, 50, 0, 0, 0, 0, 300, 500, "brick.jpg", "#fc865d"],
+        [0, 0, 0, 0, 0, 0, 300, 500, "brick.jpg", "#fc865d"],
     ],
 
     objects : [
@@ -43,7 +43,11 @@ function parsDiv( currentEntry ) {
 
     element.style.transform = 
     getTransform( 
-        vec3( currentEntry[0], currentEntry[1], currentEntry[2] ), 
+        vec3( 
+            parseInt( getComputedStyle( world ).width, 10 ) / 2 - currentEntry[6] / 2 - currentEntry[0], 
+            parseInt( getComputedStyle( world ).width, 10 ) / 2 - currentEntry[7] / 2 - currentEntry[1], 
+            currentEntry[2]
+            ),
         vec3( currentEntry[3], currentEntry[4], currentEntry[5] )
     )
 
@@ -61,7 +65,10 @@ function parsGeometry( geometry ) {
         let object = geometry[ index ]
         let element = parsDiv( object )
         
-        //Collider math time :3
+        allLoadedColliders.push( {
+            p0 : vec3( object[ 0 ], object[ 1 ], object[ 2 ] ),
+
+        } )
         
         world.appendChild( element )
     } 
