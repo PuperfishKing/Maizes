@@ -20,18 +20,18 @@ updatePlayer = () => {
     playerVelocity.x = (cos * dirSideways - sin * dirForward) * movementSpeed
     playerVelocity.z = (sin * dirSideways - -cos * dirForward) * movementSpeed
 
-    // playerPosition = addVec3( playerPosition, playerVelocity )
+    playerPosition = addVec3( playerPosition, playerVelocity )
     
-    for ( let i = 0; i < 5; i++ ) {
-        if (AABBCollition()) {
-            playerVelocity.x *= -1
-            playerVelocity.y *= -1
-            playerVelocity.z *= -1
-        }
-        playerPosition.x += playerVelocity.x / 5
-        playerPosition.y += playerVelocity.y / 5
-        playerPosition.z += playerVelocity.z / 5
-    }
+    // for ( let i = 0; i < 5; i++ ) {
+    //     if (AABBCollition()) {
+    //         playerVelocity.x *= -1
+    //         playerVelocity.y *= -1
+    //         playerVelocity.z *= -1
+    //     }
+    //     playerPosition.x += playerVelocity.x / 5
+    //     playerPosition.y += playerVelocity.y / 5
+    //     playerPosition.z += playerVelocity.z / 5
+    // }
 
     fixRotationVector( playerRotation )
     world.style.transform = "translateZ( 600px )" + getTransform( playerPosition, playerRotation )
